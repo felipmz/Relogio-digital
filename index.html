@@ -1,74 +1,99 @@
-<html>
-    <head>
-        <title>
-            Relogio digital
-        </title>
-        <style>
-            body{
-                background-color: black;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%,-50%);
-                font-family:'IBM Plex Mono', monospace;
-                
-            }
-            .tudo{
-                font-size: 60px;
-            }
-            .tudo{
-                width: 500px;
-                height: 210px;
-                text-align: center;
-                border-radius: 10px;
-                border-color: rgb(0, 221, 0);
-                border-style:solid;
-                border-bottom-width: 03px;
-                
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relógio Digital Retro</title>
 
-                
-                }
-                div#tudo{
-                    box-shadow: 0 0 15px rgb(0, 221, 0) ;
-                    text-shadow: 0 0 15px rgb(0, 221, 0);
-                    
-                }
-            
-        </style>
-    </head>
-    <body>
-        <div id="tudo" class="tudo" style="  background-color: rgb(0, 0, 0);"><!--falta colocar as bordas-->
-            <!--falta mudar a fonte dos nuemros-->
-            
-            <div id="div_relogio" style=" color: rgb(60, 255, 0); padding-top: 70px;" >00:00:00</div>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Orbitron:wght@400;700&family=Press+Start+2P&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
 
-            <div id="div_data" style=" font-size: 20px; color:rgb(60, 255, 0);">data</div>
-        </div>
-    </body>
-    <script>
-        function data() {
-            var data = new Date();
-            var data_mes = data.getMonth();
-            var data_hoje = data.getDate();
-            var data_ano = data.getFullYear();
-            
-            var data_cmp = data_hoje+" / "+(data_mes + 1) +" / "+data_ano;
-            var data = window.document.getElementById('div_data');
-            data.innerHTML = data_cmp;
-        }setInterval(data,1000);
-
-
-        function relogio(){
-            var data = new Date();
-            var hora =data.getHours();
-            var mim = data.getMinutes();
-            var seg = data.getSeconds();
-
-            var tempo_total = hora + ":" + mim + ":" + seg;
-            var tempo = window.document.getElementById('div_relogio');
-            tempo.innerHTML = tempo_total;
-        }
-        setInterval(relogio,500);
+    <div id="menu-cores" class="menu-container">
         
-    </script>
+        <div id="btn-menu" class="circulo-oco" title="Configurações"></div>
+        
+        <div id="lista-opcoes" class="opcoes-container">
+            
+            <p class="titulo-menu">CORES</p>
+            <input type="color" id="input-cor-personalizada" style="display: none;">
+
+            <div class="grid-cores">
+                <div class="cor-item" style="background-color: rgb(60, 255, 0);" onclick="mudarCor('rgb(60, 255, 0)')"></div>
+                <div class="cor-item" style="background-color: rgb(0, 255, 255);" onclick="mudarCor('rgb(0, 255, 255)')"></div>
+                <div class="cor-item" style="background-color: rgb(255, 0, 255);" onclick="mudarCor('rgb(255, 0, 255)')"></div>
+                <div class="cor-item" style="background-color: rgb(255, 255, 0);" onclick="mudarCor('rgb(255, 255, 0)')"></div>
+                
+                <div class="cor-item" style="background-color: rgb(255, 50, 50);" onclick="mudarCor('rgb(255, 50, 50)')"></div>
+                <div class="cor-item" style="background-color: rgb(0, 110, 255);" onclick="mudarCor('rgb(0, 110, 255)')"></div>
+                <div class="cor-item" style="background-color: rgb(138, 43, 226);" onclick="mudarCor('rgb(138, 43, 226)')"></div>
+                <div class="cor-item" style="background-color: rgb(255, 140, 0);" onclick="mudarCor('rgb(255, 140, 0)')"></div>
+
+                <div class="cor-item" style="background-color: rgb(255, 20, 147);" onclick="mudarCor('rgb(255, 20, 147)')"></div>
+                <div class="cor-item" style="background-color: rgb(50, 205, 50);" onclick="mudarCor('rgb(50, 205, 50)')"></div>
+                <div class="cor-item" style="background-color: rgb(255, 215, 0);" onclick="mudarCor('rgb(255, 215, 0)')"></div>
+                <div class="cor-item" style="background-color: rgb(255, 255, 255);" onclick="mudarCor('rgb(255, 255, 255)')"></div>
+
+                <div class="cor-item btn-plus" onclick="abrirSeletor()" title="Personalizar">+</div>
+            </div>
+
+            <div class="divisor"></div>
+
+            <p class="titulo-menu">TAMANHO</p>
+            <div class="grid-tamanhos">
+                <button class="btn-tam" onclick="mudarTamanho(1)">P</button>
+                <button class="btn-tam" onclick="mudarTamanho(1.5)">M</button>
+                <button class="btn-tam" onclick="mudarTamanho(2.0)">G</button>
+                <button class="btn-tam" onclick="mudarTamanho(3.5)">TV</button>
+            </div>
+
+            <div class="divisor"></div>
+
+            <p class="titulo-menu">FONTE</p>
+            <div class="grid-tamanhos">
+                <button class="btn-tam" onclick="mudarFonte('IBM Plex Mono')">Mono</button>
+                <button class="btn-tam" onclick="mudarFonte('Press Start 2P')">Pixel</button>
+                <button class="btn-tam" onclick="mudarFonte('Orbitron')">SciFi</button>
+                <button class="btn-tam" onclick="mudarFonte('Share Tech Mono')">Tech</button>
+            </div>
+
+            <div class="divisor"></div>
+
+            <p class="titulo-menu">BRILHO</p>
+            <div class="container-slider">
+                <input type="range" min="0.3" max="1.5" step="0.1" value="1" id="slider-brilho" oninput="mudarBrilho(this.value)">
+            </div>
+
+            <div class="divisor"></div>
+
+            <p class="titulo-menu">ANIMAÇÃO</p>
+            <div class="grid-tamanhos">
+                <button class="btn-tam" onclick="mudarAnimacao('none')">Off</button>
+                <button class="btn-tam" onclick="mudarAnimacao('pulsar')">Pulse</button>
+                <button class="btn-tam" onclick="mudarAnimacao('falha')">Glitch</button>
+                <button class="btn-tam" onclick="mudarAnimacao('flutuar')">Float</button>
+            </div>
+
+            <div class="divisor"></div>
+
+            <button class="btn-reset" onclick="resetarPadrao()" title="Voltar tudo ao original">
+                RESETAR TUDO
+            </button>
+
+        </div>
+    </div>
+
+    <div id="relogio-box" class="tudo" title="Dê dois cliques para Tela Cheia">
+        <div id="conteudo-animado" class="wrapper-animacao">
+            <div id="div_relogio" class="relogio">00:00:00</div>
+            <div id="div_data" class="data">--/--/----</div>
+        </div>
+    </div>
+
+    <script src="JavaScript/script.js"></script>
+</body>
 </html>
